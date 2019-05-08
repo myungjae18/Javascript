@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>부드러운 복권 긁기</title>
+<style>
+#stage{
+	width:600px;
+	height:600px;
+	background:url("../res/bg.jpg");
+	background-size:600px 600px;
+	margin:auto;
+}
+</style>
+<script src="../lib/Box.js"></script>
+<script>
+var stage;
+var boxArray=[];
+
+function init(){
+	stage=document.getElementById("stage");
+	gameLoop();
+	createBox();
+}
+function createBox(){
+	for(var a=0;a<30;a++){
+		for(var i=0;i<30;i++){
+			boxArray.push(new Box(stage,20,20,"blue"));
+		}
+	}
+	//stage의 크기를 동적으로 제어해보자
+	var stageX = 20*30;
+	var stageY = 20*30;
+	stage.style.width=stageX+"px";
+	stage.style.height=stageY+"px";
+	stage.style.backgroundSize=stageX+"px "+stageY+"px";
+}
+function gameLoop(){
+	for(var i=0;i<boxArray.length;i++){
+		boxArray[i].render();
+	}
+	setTimeout("gameLoop()", 50);
+	
+}
+
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

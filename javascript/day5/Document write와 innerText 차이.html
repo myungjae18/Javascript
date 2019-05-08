@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document write와 innerText 차이</title>
+<script>
+document.write("사과");
+function init(){
+	var msg=document.getElementById("msg");
+	//innerHTML은 꺽쇠를 태그로 해석해준다
+	msg.innerHTML="<b>두꺼비</b>";
+	//document.write("<b>두꺼비</b>");
+}
+</script>
+</head>
+<body onLoad="init()">
+	<h1 id="msg"></h1>
+</body>
+</html>

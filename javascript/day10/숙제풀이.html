@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>숙제풀이</title>
+<style>
+.wrapper{
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:50px;
+	text-align:center;
+}
+#stage{
+	width:100%;
+	height:650px;
+	background:red;
+}
+</style>
+<script>
+var stage;
+var cols=20; //만들어질 셀의 갯수 안쪽 for문과 연관
+var rows=10; //만들어질 행의 갯수
+var size=50; //한 셀의 크기
+var bd=1; //두께
+var stageWidth=(size+(bd*2))*cols;
+var stageHeight=(size+(bd*2))*rows;
+var memoryArray=new Array(); //텅빈 배열 선언
+var count=0;
+
+function init(){
+	stage=document.getElementById("stage");
+	stage.style.width=stageWidth+"px";
+	stage.style.height=stageHeight+"px";
+	stage.style.margin="auto";
+
+	createCell();
+}
+//사각형을 생성한다
+function createCell(){
+	var n=0;
+	for(var a=0;a<rows;a++){
+		for(var i=0;i<cols;i++){
+			var div=document.createElement("div");
+			div.style.width=size+"px";
+			div.style.height=size+"px";
+			div.style.background="green";
+			//div는 블락 속성이므로, float을 left로 변경한다
+			div.style.float="left";
+			div.style.border=bd+"px solid yellow";
+			div.style.color="white";	
+			div.innerText=n+"("+a+","+i+")";
+			div.id=n;
+			div.addEventListener("click", function(){
+				//alert(this.id);
+				//지금 선택한 div 자체를 배열에 보관해놓자
+				//왜? 그래야 추후 보관디ㅗㄴ 데이터를 대상으로 다시 색상을 변경할 수 있게 하기 위해..(재생)
+				memoryArray.push(this);
+				//배경 색 변경
+				this.style.background="yellow";
+			});
+			n++;
+			stage.appendChild(div);
+		}
+	}
+	//셀 생성 이후에 stage의 크기를 결정하자
+}
+//배경색만 초기화. 메모리엔 여전히 기록이 남아있다
+function erase(){
+	for(var i=0;i<memoryArray.length;i++){
+		var div=memoryArray[i];
+		div.style.background="green";
+	}
+}
+//메모리 배열에 등록된 그 div들을 대상으로 색상을 노란색으로 변경
+function play(){
+	//for문은 과정을 보여주기엔 속도가 너무 빠르다. 결국 for문이 했던 역할은 변수 하나를 1씩 증가시키는 역할이었기 때문에 이 역할을 for문에게 맡기지 말고 훨씬 느린 실행 방법으로 바꾸어 재미를 더한다...
+	var div=memoryArray[count];
+	div.style.background="yellow";
+	count++;
+	setTimeout("play()",500);
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div	class="wrapper">
+		<div class="up">
+			<button onClick="erase()">지우개</button>
+			<button onClick="play()"> 재생</button>
+		</div>
+		<div	id="stage"></div>
+	</div>
+</body>
+</html>

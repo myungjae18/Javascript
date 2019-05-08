@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>앵그리버드</title>
+<style>
+/*선택자(selector)란 스타일을 적용하기 위한 대상*/
+#box{
+	width:100px;
+	height:100px;
+	background:yellow;
+}
+</style>
+<script>
+//문서 내의 box라는 요소의 스타일 중 배경색을 빨간색으로
+//사용자정의 함수
+function init(){
+	var box:document.getElementById("box");
+	box.style.background="red";
+}
+</script>
+</head>
+<body onLoad="init()">
+	<div id="box"></div>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>화살 날리기</title>
+<script>
+var span;
+var x=0;
+
+function init(){
+	createArrow();
+
+	gameLoop();
+}
+function createArrow(){
+for(var i=1;i<=3;i++){
+	
+		arrowi=document.getElementById("arrow"+i);
+		//span은 inline 속성을 갖는다. padding이 적용되지 않는다..
+		
+		arrowi.style.fontSize=i*20+"px";
+		arrowi.style.color="red";
+		arrowi.style.position="absolute";
+		arrowi.style.left=0+"px";
+		arrowi.style.top=i*100+"px";
+	
+
+	x+=i*10;
+	arrowi.style.left=x+"px";
+	
+}
+}
+//화살 움직이기 함수
+
+
+//모든 게임은 캐릭터나 아이템이 현재 움직이지 않는다 해도 기본적으로 루프가 실행되고 있어야 한다
+function gameLoop(){
+	console.log("실행중");
+	createArrow();
+	setTimeout("gameLoop()",30);
+	
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<span	id="arrow1">→</span>
+	<span	id="arrow2">→</span>
+	<span	id="arrow3">→ </span>
+</body>
+</html>

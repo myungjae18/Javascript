@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>변수란</title>
+<style>
+/*배경 이미지를 적용해본다.
+선택자 : body
+css클래스 : {브레이스}를 클래스라고 한다. 적용하고 싶은 스타일 시트를 단위로 만들어 놓은 것.*/
+body{background-image:url("./images/배경.jpg");
+background-repeat: repeat-x;
+background-size: 600px 400px;
+background-position: 0px 0px;
+}
+/*우주선의 위치를 절대위치로 지정해본다. html 문서이므로, 태그 요소의 위치를 맘대로 설정할 수 없다. 따라서 스타일 지원하는 위치 속성중 부모를 기준으로한 절대위치를 적용해보자*/
+#ship{
+position:absolute;
+left:0px;
+top:150px;
+}
+</style>
+<script>
+/*
+1.변수 : 컴퓨터에게 일거리 제공
+2.연산자 : 사칙연산 기호
+/*사람에게 3+4를 물어보는 업무를 프로그래밍으로 표현해보자*/
+//컴퓨터에게 3과 4를 기억하라는 명령
+//중고등학교 수학과는 틀리다
+var x=0; //메모리에 공간을 확보하고, 그공간에 3을 기억시켜라 그리고 그 공간의 이름을 x로 하여라
+var shipX=0; //우주선의 x좌표에 사용할 변수
+//문서 전체에 지정한 문자열 출력
+//document.write(x+y);
+//특정 영역에 코드를 작성한 후, {브레이스}로 감싸고 이름을 붙인 단위를 함수라 한다. 함수는 불러야 일한다.
+function move(){//영역지정 
+	//alert("안녕");
+	//배경의 스타일 시트의 x축의 값을 변경해보자
+	x=x-10;
+	document.body.style.backgroundPosition=x+"px 0px";
+	//이 함수를 원하는 시간 간격으로 계속 호출하면 자동이 된다.
+	setTimeout("move()",100);//1000분의 1까지 표현가능
+	}
+function joystick(){
+	//alert("나 눌렀어?")
+	//문서내에 ship이라는 아이디를 갖는 요소의 스타일속성 중 left 값을 증가시켜보겠다.
+	shipX=shipX+5;
+	document.getElementById("ship").style.left=shipX+"px";
+	}
+</script>
+</head>
+<body onKeyDown="joystick()">
+	<input type="button" value="배경 움직이기" onclick="move()"/>
+	<img src="./images/우주선.jpg" width="200px"id="ship"/>
+</body>
+</html>

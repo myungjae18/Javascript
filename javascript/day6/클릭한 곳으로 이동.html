@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>클릭한 곳으로 이동</title>
+<style>
+body{margin:0px;}
+#stage{
+	width:100%;
+	height:600px;
+	border:5px solid red;
+}
+</style>
+<script>
+var img;//피카츄를 여러함수에서 접근하게 하기 위한 전역 변수
+var a=0.1; //몇퍼센트를 가야할지 결정하는 비율계수. 1에 가까울 수록 성큼 다가온다.
+var targetX=500; //피카츄가 도달할 목표지점 추후 마우스 좌표값으로 대체할 예정
+
+//onLoad 구현
+addEventListener("load", function(){
+	init();
+});
+//프로그램이 가동되자마자 초기에 할 작업을 처리할 함수
+function init(){
+	var stage=document.getElementById("stage");
+	//피카츄 등장
+	img=document.createElement("img");
+	img.src="../res/피카.jpg";
+	img.style.position="absolute";
+	img.style.left=100+"px";
+	img.style.top=150+"px";
+	img.style.width=100+"px";
+	
+	stage.appendChild(img);
+
+	//stage라는 div를 대상으로 클릭을 하면 그 클릭 지점의 마우스 좌표를 구해서 피카츄를 위치시키자
+	stage.addEventListener("mousemove", function(){
+		//jump();
+		//피카츄가 뛰어갈 목표지점을 알려준다.
+		targetX=event.clientX;
+		targetY=event.clientY;
+		soft();//야금야금 다가오게
+	});
+
+	//soft 함수를 인간이 호출하면 너무 힘들고 느리기 때문에 컴퓨터에게 호출을 맡긴다.
+	setInterval("soft()",1);
+}
+//피카츄 이동 함수
+//function jump(){
+	//피카츄의 스타일 속성중 left, top을 마우스 좌표와 일치
+	//img.style.left=event.clientX+"px";
+	//img.style.top=event.clientY+"px";
+
+function soft(){
+	console.log(img.style.left, img.style.top);
+	//alert(img.style.left);
+	//한번에 순간이동하지 말고 나눠서 와야 한다
+	//감속도 공식
+	//나의 위치= 나의 현재 위치 + a*(목표지점 - 나의 위치)+px
+	//parseInt("30") : 문자를 정수화 시켜준다
+	img.style.left=parseInt(img.style.left) + a*(targetX-parseInt(img.style.left))+"px";
+	img.style.top=parseInt(img.style.top) + a*(targetY-parseInt(img.style.top))+"px";
+}
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

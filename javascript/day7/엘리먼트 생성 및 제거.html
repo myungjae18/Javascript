@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>엘리먼트 생성 및 제거</title>
+<script>
+var img;
+//이미지 요소를 생성하여 body에 부착
+function add(){
+	//createElement() 메모리에 객체를 생성하는 것이다
+	img=document.createElement("img");
+	img.src="../res/피카.jpg";
+	img.addEventListener("click", function(){
+		remove();
+	});
+	document.body.appendChild(img);
+}
+//생성된 dom 객체를 없애자
+//메모리에서 제거가 아니라 부착을 취소
+function remove(){
+	document.body.removeChild(img);
+}
+</script>
+</head>
+<body>
+	<button id="bt"onClick="this.style.background='red'">나버튼</button>
+	
+	<button onClick="add()">생성</button>
+	<button onClick="remove()">제거</button>
+</body>
+</html>

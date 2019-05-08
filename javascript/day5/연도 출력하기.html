@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>연도 출력하기</title>
+<style>
+select{
+	background:dodgerblue;
+	color:#ffffff;
+	font-size:40px;
+	width:200px;
+}
+</style>
+<script>
+var x=90;
+function init(){
+	//동적으로 option dom을 만들어서 sel이라 불리는 dom 자식으로 붙이자 횟수는 1990~1950까지
+	for(x=90;x>=50;x--){
+			var op=document.createElement("option");
+			op.text="19"+x;
+			if(x%10==0){
+				op.style.background="#000000";
+			}
+			var sel=document.getElementById("sel");
+			sel.add(op);//자식 요소로 추가
+		}
+}
+</script>
+</head>
+<body onLoad="init()">
+	<select id="sel"></select>
+</body>
+</html>

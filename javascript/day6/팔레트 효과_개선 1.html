@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>팔레트 효과</title>
+<style>
+.wrapper{
+	width:700px;
+	height:500px;
+	background:yellow;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:100px;
+	background:#000; /*0 6개와 동일*/
+}
+.down{
+	width:100%;
+	height:400px;
+	background:pink;
+}
+/*up 클래스 하위에 있는 모든 div*/
+</style>
+<script>
+/*지금까지 사용해왔던 html 태그요소에 기재한 이벤트핸들러를 프로그래밍적으로 동작시킬 수 있을까? yes*/
+window.addEventListener("load", function(){
+	init();	
+});
+function init(){
+	//기존에 없었던 div들을 동적으로 7개 생성하여 up영역에 부착
+	for(var i=1; i<=7;i++){
+		var div=document.createElement("div");
+		div.style.width=100+"px";
+		div.style.height=100+"px";
+		div.style.border="1px solid red";
+		div.style.float="left";
+		//동적 이벤트 처리방법
+		//addEventListner() 함수 앞에 이벤트를 일으키는 주체가 온다
+		div.addEventListener("click",function(){
+			alert("나 선택했어");	
+		});
+		document.getElementById("pal").appendChild(div);
+	}
+}
+//down 영역의 div의 배경색을 현재 선택한 박스와 같은 색으로 변경
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="up" id="pal">
+			
+		</div>
+		<div class="down" id="content"></div>
+	</div>
+</body>
+</html>

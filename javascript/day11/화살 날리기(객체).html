@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>화살 날리기</title>
+<script src="./Arrow.js"></script>
+<script src="../lib/common.js"></script>
+<script>
+var arr=[];
+var color=["red","orange","yellow","green","blue","navy","purple"]; //원하는 색상들을 배열화 시킨다.. 랜덤하게 추출하기 위해..
+function init(){
+	createArrow();
+	gameLoop();
+}
+function createArrow(){
+	//거푸집으로부터 쇳물을 부어 하나를 만들어보자..
+	for(var i=0;i<100;i++){
+		var r=getRandom(color.length); //0~6사이의 수
+		var s=getRandom(10)+1; //1~10까지의 수
+		arr[i]=new Arrow(color[r],i*100,s);
+	}
+}
+//모든 게임은 케릭터나 아이템이 현재 움직이지 않는다 해도, 기본적으로
+//루프가 실행되고 있어야 한다..
+function gameLoop(){
+	for(var i=0;i<100;i++){
+		arr[i].move();
+	}
+	setTimeout("gameLoop()", 10);
+}
+window.addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+</body>
+</html>

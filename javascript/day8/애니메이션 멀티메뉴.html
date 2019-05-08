@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>애니메이션 멀티메뉴</title>
+<style>
+#wrapper{
+	text-align:center;
+	margin:auto;
+	width:750px;
+	background:black;
+	
+	position:relative;
+	height:30px;
+	/*자식 요소가 떠버리면 부모에 반드시 overflow 속성을 적용하여 빈자리에 대한 처리를 해야 된다*/
+}
+</style>
+<script>
+var wrapper;
+var word=["Linux","oracle","servlet","spring","mybatis"];
+//배열은 자바스크립트에서 내장객체로 지원되는데 배열을 생성하는 방법은 크게 2가지 방법이 있다
+//1) 선언과 동시에 할당하는 방법 var arr=["a", "b", "c"];
+//2) 명시적 선언 방법 var m = new Array(5);
+var menus=new Array(5);
+var a=0.1;
+var targetH;
+var currentMenu; //지금 선택한 메뉴
+
+function init(){
+	wrapper=document.getElementById("wrapper");
+	createMenu();
+	//setSize();
+	setInterval("setSize()", 10);
+}
+function createMenu(){
+	for(var x=0; x<word.length;x++){
+		menu=document.createElement("div");
+		menus[x]=menu; // 각 메뉴를 배열에 담아놓자 나중에 호출하기 위해서
+		menu.style.width=150+"px";
+		menu.style.height=30+"px";
+		menu.style.background="red";
+		menu.style.color="#ffdd00";
+		menu.innerText=word[x];
+		menu.style.position="absolute";
+		menu.style.left=150*x+"px";
+		menu.addEventListener("mouseover",function(){
+			targetH=500;
+			//이 메뉴의 배경색을 파란색으로 바꾸자
+			this.style.background="blue";
+			//alert("wjsmssofu");
+			currentMenu=this;
+		});
+		menu.addEventListener("mouseout",function(){
+			targetH=30;
+			this.style.background="red";
+		});
+		wrapper.appendChild(menu);
+	}
+}
+//메뉴의 높이를 증가시키거나 감소시키는 함수(감속도 공식)
+function setSize(){
+	//0번째 메뉴에 대해서만 애니메이션을 작동하지 말고 선택한 메뉴에 대해서 감속도 애니메이션을 작용시키자
+	
+		if(currentMenu!=undefined){ //클릭했을 때만, 즉 currentMenu값이 undefined 가 아니면
+			currentMenu.style.background="green";
+		
+			//높이를 야금야금
+			//메뉴높이 = 현재메뉴높이 + a*(목표지점 - 현재메뉴높이)
+			currentMenu.style.height=parseInt(currentMenu.style.height) + a*(targetH - parseInt(currentMenu.style.height)) + "px";
+		}
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div id="wrapper"></div>
+</body>
+</html>

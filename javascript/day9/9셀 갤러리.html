@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>9셀 갤러리</title>
+<style>
+.wrapper{
+	width:750px;
+	height:600px;
+	background:pink;
+	margin:auto;
+}
+.controller{
+	width:150px;
+	height:100%;
+	background:blue;
+	position:relative;
+	float:left;
+}
+#map{
+	width:100px;
+	height:100px;
+	position:absolute;
+	left:20px;
+	top:100px;
+	
+}
+.content{
+	width:600px;
+	height:100%;
+	background:black;
+	float:left;
+}
+.mask{
+	width:200px;
+	height:200px;
+	position:relative; /*다른 태그에 의해 영향을 받은 최초의 바로 그자리를 기준으로 한 위치 속성이 상대위치다*/
+	top:200px;
+	left:200px;
+	overflow:hidden;*/
+}
+#box{
+	width:600px;
+	height:600px;
+	background:green;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+</style>
+<script>
+var map;
+var box;
+var pos=[
+	[0,0],[-200,0],[-400,0],
+	[0,-200],[-200,-200],[-400,-200],
+	[0,-400],[-200,-400],[-400,-400]
+];
+var targetX=0;
+var targetY=0;
+var a=0.1;
+var imgPath=[
+	"1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg","9.jpg"
+];
+
+function init(){
+	map=document.getElementById("map");
+	box=document.getElementById("box");
+	box.style.position="absolute";
+	box.style.top=0+"px";
+	box.style.left=0+"px";
+	createMap();
+	createImg();
+	setInterval("move()",30);
+}
+//갤러리를 선택할 수 이쓴ㄴ 미니맵
+function createMap(){
+	for(var i=0;i<9;i++){//하드코딩 하지말자 추후 변경예정
+		var div=document.createElement("div");
+		div.style.width=30+"px";
+		div.style.top=30+"px";
+		div.style.border="1px solid blue";
+		div.style.background="yellow";
+		div.style.float="left";
+		div.id=i;
+		div.innerText=div.id;
+		div.addEventListener("click", function(){
+		//alert(this.id+"나 불렀어");	
+		targetX=pos[this.id][0];
+		targetY=pos[this.id][1];
+		//alert(x+","+y);
+		//move();
+	});
+	
+	map.appendChild(div);
+	}
+}	
+
+//박스 자체를 움직이게 하는 함수
+//박스 안에 이미지 채우기
+function createImg(){
+	for(var i=0;i<imgPath.length;i++){
+		var img=document.createElement("img");
+		img.src="../res/geo/"+imgPath[i];
+		img.style.width=200+"px";
+		img.style.height=200+"px";
+		box.appendChild(img);
+	}
+}
+function move(){
+	box.style.left=parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+"px";
+	box.style.top=parseFloat(box.style.top)+a*(targetY-parseFloat(box.style.top))+"px";
+	
+}
+
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="controller">
+			<div id="map"></div>
+		</div>
+		<div class="content">
+			<div class="mask">
+				<div id="box"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

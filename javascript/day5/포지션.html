@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>포지션</title>
+<style>
+/*
+1)절대위치 - 가장 근접한 부모를 기준으로 한 위치속성
+2)상대위치 - 최초에 다른 태그 요소에 의해 결정된 위치를 기준으로 한 속성
+*/
+#outer{
+	width:500px;
+	height:500px;
+	background:red;
+	position:absolute; /*현재로선 근접한 부모는 body이다*/
+	left:200px; /*좌측으로부터 얼마나 떨어져 있느냐*/
+	top:100px; /*위쪽으로부터 얼마나 떨어져 있느냐*/
+}
+#child{
+	width:100px;
+	height:100px;
+	background:yellow;
+	position:absolute; /*현재로선 근접한 부모가 outer이다*/
+	left:50px;
+	top:50px;
+}
+</style>
+</head>
+<body>
+	<div id="outer">
+		<div id="child"></div>
+	</div>
+</body>
+</html>

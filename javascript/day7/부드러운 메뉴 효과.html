@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>부드러운 메뉴 효과</title>
+<style>
+body{margin:0px;}
+</style>
+<script>
+var div;
+var targetH=40;
+var a=0.1; //1에 가까울 소록 투박해짐
+function init(){
+	createRect();
+	setInterval("setSize()",10)
+}
+function createRect(){
+	div=document.createElement("div");
+	div.style.width=200+"px";
+	div.style.height=40+"px";
+	div.style.background="red";
+	document.body.appendChild(div);
+}
+//사각형의 높이를 지정한 target 지점까지 도달하게 하자
+function setSize(){
+	//나의 위치 = 현재 나의 위치 +  a*(targetH - 현재 나의 위치)
+
+	div.style.height= parseInt(div.style.height) + a*(targetH - parseInt(div.style.height)) +"px";
+}
+
+addEventListener("load", function(){
+	init();
+	div.addEventListener("mouseover", function(){
+		targetH=500;
+		//setSize();
+	});	
+	
+	div.addEventListener("mouseout", function(){
+		targetH=40;
+		//setSize();	
+	});
+});
+</script>
+</head>
+<body>
+
+</body>
+</html>

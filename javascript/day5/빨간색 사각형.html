@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>빨간색 사각형</title>
+<style>
+body{margin:0px;}
+#red{
+	width:100px;
+	height:100px;
+	background:red;
+}
+</style>
+<script>
+var flag;
+var x=0;
+function go(){
+	x=x+1;
+	if(flag){			
+		var red=body.getElementById("red");
+		red.style.background:red;
+}else{
+		var red=body.getElementById("red");
+		red.style.background:none;
+	if(x>0){
+		flag=!flag;
+	}
+}
+</script>
+</head>
+<body onClick="go">
+	<div id="red"></div>
+</body>
+</html>

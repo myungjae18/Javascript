@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>여전사 변형하기</title>
+<style>
+#wrapper{
+	width:954px;
+	height:604px;
+	border:2px solid blue;
+	margin:auto;/*현재 div가 차지하고 있는 공간 외의 남은 공간을 양분해서 알아서 분할한다. 따라서 중앙으로 오게됨*/
+}
+#control{
+	width:150px;
+	height:100%;
+	border:2px solid red;
+		/*현재 static 속성이 적용되었기 때문에 다른 요소가 올라오지 못하고있다. 따러서 올라오게 하려면 현재 태그요소를 공중으로 띄우자*/
+	float:left;
+	}
+#content{
+	width:800px;
+	height:100%;
+	background-image:url("../res/universe.jpg");
+	float:left;
+	text-align:center;
+}
+#hero{
+	 transform: rotate(0deg);
+}
+</style>
+<script>
+//전역변수는 코드의 제일 상단에 선언한다. 왜냐하면 중간 중간에 전연변수가 있을 경우, 코드 분석에 앞서 변수 찾는 일이 되버린다.
+var r=0; //각도를 누적할 전역변수
+var op=1;
+//문서 내의 hero라는 아이디의 스타일의 rotate 속성값의 양수값을 적용하여 돌리기
+function rotate1(){
+	r+=10;
+	document.getElementById("hero").style.transform="rotate("+r+"deg)";
+	}
+function rotate2(){
+	r+=10;
+	document.getElementById("hero").style.transform="rotate("+r+"deg)";
+	}
+function opacity1(){
+	op+=0.1;
+	document.getElementById("hero").style.opacity=op;
+	}
+function opacity2(){
+	op-=0.1;
+	document.getElementById("hero").style.opacity=op;
+	}
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="control">좌측 패널
+			<h3>회전조절</h3>
+			<img src="../res/plus_btn.png" width="50px" onClick="rotate1()"/>
+			<img src="../res/minus_btn.png" width="50px" onClick="rotate2()"/>
+			
+			<h3>투명도</h3>
+			<img src="../res/plus_btn.png" width="50px" onClick="opacity1()"/>
+			<img src="../res/minus_btn.png" width="50px" onClick="opacity2()"/>
+		<div id="content">우측 패널
+			<img src="../res/warior.png" width="400px" id="hero"/>
+		</div>
+	</div>
+</body>
+</html>

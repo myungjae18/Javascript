@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>테이블 출력 숙제 풀이</title>
+<style>
+.wrapper{
+	width:500px;
+	height:600px;
+	border:5px solid dodgerblue;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:50px;
+	background:yellow;
+}
+#content{
+	width:100%;
+	height:550px;
+	overflow-y:scroll; /*넘쳐나면 스크롤 붙인다*/
+	font-size:20px;
+	font-weight:bold;
+	color:blue;
+}
+.up input{
+	width:15%;
+	font-size:30px;
+}
+button{
+	width:25%;
+	font-size:20px;
+}
+</style>
+<script>
+var txt1, txt2, txt3, txt4 //입력받을 텍스트박스들
+var content; //테이블 출력될 div
+function init(){
+	txt1=document.getElementById("txt1");
+	txt2=document.getElementById("txt2");
+	txt3=document.getElementById("txt3");
+	txt4=document.getElementById("txt4");
+	content=document.getElementById("content");
+	var bt=document.getElementById("bt");
+	
+	bt.addEventListener("click", function(){
+		printTable();
+	});
+}
+
+function printTable(){
+	var str="";
+	var f=txt3.value; //층수
+	var h=txt4.value; //호수
+
+	str=str+"<table width='100%' border='1px'>";
+	for(var a=f;a>=1;a--){
+		str=str+"<tr>";
+		for(var i=1;i<=h;i++){
+			str=str+"<td>"+a+"0"+i+"호</td>";
+		}	
+	str=str+"</tr>";
+	}
+	str=str+"</table>";
+	content.innerHTML=str;
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="up">
+			<input type="text" id="txt1" placeholder="너비"/>
+			<input type="text" id="txt2" placeholder="두께"/>
+			<input type="text" id="txt3" placeholder="층수"/>
+			<input type="text" id="txt4" placeholder="호수"/>
+			<button id="bt">테이블 출력</button>
+		</div>
+		<div id="content"></div>
+	</div>
+</body>
+</html>

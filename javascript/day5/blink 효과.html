@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>blink 효과</title>
+<style>
+
+</style>
+<script>
+//문서가 모두 로드된 시점, 즉 태그 요소가 DOM화 된 완료 시점에 아래의 함수가 호출된다.
+var bg="red"; //색상을 결정하는 전역변수
+var flag=true;
+var div;
+function init(){
+	//기존에 없었던 새로운 div DOM을 생성하여 body에 부착하자
+	div=document.createElement("div");
+	div.style.background=bg;
+	div.style.width=100+"px";
+	div.style.height=100+"px";
+		
+	document.body.appendChild(div); //body에 div 부착
+	auto();
+}
+function auto(){
+	//일정 시간 간격으로 변수값을 전환시켜 배경에 적용하자
+	/*
+	if(flag){
+		bg="red";
+	}else{
+		bg="none";
+	}*/
+	//흑백논리는 if~else 및 삼항연산자와 무지무지 친하다
+	bg=(flag)? "red":"none";
+	div.style.background=bg;
+	flag=!flag;
+	setTimeout("auto()",100);
+}
+</script>
+</head>
+<body onLoad="init()">
+</body>
+</html>

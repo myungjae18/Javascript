@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>객체간 충돌 체크</title>
+<style>
+#stage{
+	width:100%;
+	height:700px;
+}
+</style>
+<script src="./Rect.js"></script>
+<script src="../lib/common.js"></script>
+<script>
+var stage;
+var r1,r2;
+
+function init(){
+	stage=document.getElementById("stage");
+
+	//두개의 사각형 인스턴스를 만들되, 서로 거리를 둔다, 배경색도 틀리게
+	//사각형1, x:100, y:150 , 파란색, 가로*세로 정사각형 100,속도0 
+	//사각형2  x:500, y:150 , 노란색, 가로*세로 정사각형 100,속도0
+	r1=new Rect(stage,100,100,100,150,0,0,"blue");
+	r2=new Rect(stage,100,100,500,150,0,0,"red");
+}
+//물체 조종 함수 정의 
+function control(){
+	switch(event.keyCode){
+		case 37:r1.velX=-5;break;
+		case 39:r1.velX=5;break;
+		case 38:r1.velY=-5;break;
+		case 40:r1.velY=5;break;
+	}
+	//현재 움직이고 있는 물체가 타겟 물체와 교차하는지 체크한다!!
+	var result=collisionCheck(r1,r2);	
+	if(result){
+		r1.div.style.background="yellow";
+	}else{
+		r1.div.style.background="blue";
+	}
+
+	r1.tick();
+	r1.render();
+}
+function stop(){
+	r1.velX=0;
+	r1.velY=0;
+	r1.tick();
+	r1.render();
+}
+</script>
+</head>
+<body onLoad="init()" onKeyDown="control()" onKeyUp="stop()">
+	<div id="stage"></div>
+</body>
+</html>

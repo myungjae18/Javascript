@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>다트 효과</title>
+<style>
+#wrapper{
+	width:100%;
+	height:600px;
+	background:yellow;
+	text-align:center
+}
+</style>
+<script>
+//전역변수로 선언한 이유는?
+//다른 함수 영역에서도 참조할 수 있도록 하기 위해
+var x=0;
+var y=0;
+var r=0; //다트의 각도를 누적할 변수, 누적해야 하므로, 전역변수로 선언
+function getPos(){
+	//마우스의 실시간 좌표 구하기(x.y)
+	x=event.clientX; //마우스의 x좌표
+	y=event.clientY; //마우스의 y좌표
+	
+	//console.log(x,y);
+	//문서 내에 data라 불리는 요소의 사이에 문자열 넣기
+	var data=document.getElementById("data");
+	data.innerText="x축:"+x+"px  y축:"+y+"px";
+}
+	function createPos(){
+		//클릭한 위치에 없던 태그요소를 생성하여 자취를 남기자
+		var div=document.createElement("div");
+		//둥그랗고, 조그맣게 스타일 지정
+		div.style.width=6+"px";
+		div.style.height=6+"px";
+		div.style.borderRadius=3+"px";
+		div.style.background="red";
+		//div를 감싸고 있는 부모를 기준으로 한 위치속성을 적용해야 하므로, absolute로 지정해보자
+		div.style.position="absolute";
+		div.style.left=x+"px";
+		div.style.top=y+"px";
+		//문서 내에 wrapper id값을 갖는 요소에 자식으로 div를 부착
+		var wrapper=document.getElementById("wrapper");
+		wrapper.appendChild(div);
+	}
+//다트를 회전시키는 효과 함수 정의
+function spin(){
+	//문서 내의 dart라는 요소의 스타일 중 transform 중 rotate 변경
+	var dart=document.getElementById("dart");
+	r+=5
+	dart.style.transform="rotate("+r+"deg)";
+	setTimeout("spin()",10);
+}
+</script>
+</head>
+<body onMouseMove="getPos()" onClick="createPos()" onLoad="spin()">
+	<div id="wrapper">
+		<img src="../res/dart.png" width="600px" id="dart"/>
+	</div>
+	<h1 id="data">x축: , y축</h1>
+</body>
+</html>

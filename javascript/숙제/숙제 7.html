@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>숙제 7</title>
+<style>
+#stage{
+	width:350px;
+	height:300px;
+}
+</style>
+<script src="../lib/equalizer.js"></script>
+<script src="../lib/common.js"></script>
+<script>
+var stage;
+var equalArray=[];
+var bg=["red","orange","yellow","green","blue","navy","purple"];
+var equalheight=[];
+var h=[];
+var haha=[];
+
+
+function init(){
+	stage=document.getElementById("stage");
+	gameLoop();
+	createEqual();
+}
+function createEqual(){
+	for(var k=1;k<300;k++){
+		equalheight.push(k);
+	}
+	for(var j=1;j<300;j++){
+		h.push(j);
+	}
+	for(var n=1;n<300;n++){
+		haha.push(n);
+	}
+	for(var i=0;i<7;i++){
+		var x=i*50;
+		var r=getRandom(equalheight.length);
+		var t=getRandom(h.length);
+		var z=getRandom(haha.length);
+		equalArray.push(new equalizer(stage,haha[z],equalheight[r],46,h[t],x,2,0,bg[i]));
+	}		
+}
+function gameLoop(){
+	for(var i=0;i<equalArray.length;i++){
+		equalArray[i].render();
+	}
+	setTimeout("gameLoop()", 5);
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

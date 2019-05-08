@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>적군 배치하기</title>
+<script>
+var stage;
+var y=0; //배경의 y축값을 계속 증가시켜 나갈 전역 변수
+var gap=20; //적군과 적군의 간격을 결정하는 변수
+function init(){
+	stage=document.getElementById("stage");
+	createBg();
+	setInterval("moveBg()",30);
+	createEnemy();
+	//stage.addEventListener("onmousemove", function(){
+		//moveBg();	
+	//});
+}
+function createBg(){
+	stage.style.background="url(../res/gallerxy/bg.png)";
+	stage.style.width="1000px";
+	stage.style.height="800px";
+	stage.style.margin="auto";
+	stage.style.position="relative"; //이거 하지 않으면 자식이 body를 기준으로 위치하게 된다
+}
+//배경의 y축값을 증가시킨다
+function moveBg(){
+	y+=10;
+	stage.style.backgroundPosition="0px "+y+"px";
+}
+function createEnemy(){
+	for(var a=1;a<=4;a++){
+		for(var t=1; t<=10; t++){
+			var img=document.createElement("img");
+			img.src="../res/gallerxy/enemy2.png";
+			img.style.position="absolute"; //근접한 부모를 기준으로 한 위치
+			img.style.top=50+((50+gap)*a)+"px";
+			img.style.left=50+((50+gap)*t)+"px"; 
+			//stage에 자식요소로 부착
+			img.addEventListener("mousemove", function(){
+				stage.removeChild(this);
+			});
+			stage.appendChild(img);
+			
+		}	
+	}
+}
+window.addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

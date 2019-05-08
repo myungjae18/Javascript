@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>당구공 효과</title>
+<style>
+.wrapper{
+	width:600px;
+	height:650px;
+	margin:auto;
+}
+#info{
+	width:100%;
+	height:50px;
+	background:pink;
+}
+#stage{
+	width:100%;
+	height:600px;
+	background:yellow;
+	position:relative;
+}
+</style>
+<script src="./Ball.js"></script>
+<script src="../lib/common.js"></script>
+<script>
+var info, stage;
+var ball;
+var ballArray=[]; //태어날 공들이 들어갈 배열.. 개성 있는 변수 명으로 가리킬 경우 반복문을 사용할 수 없다..
+var bg=["red","orange","yellow","green","blue","navy","purple"];
+var it=["☆","★","○","▼"];
+function init(){
+	info=document.getElementById("info");
+	stage=document.getElementById("stage");
+	gameLoop();
+}
+function createBall(){
+	var r=getRandom(bg.length);
+	var t=getRandom(it.length);
+	var velx=getRandom(100)+1;
+	var vely=getRandom(100)+1;
+	//볼 생성 = 거푸집(클래스)으로부터 생성된 객체 1단위를 인스턴스라 한다..
+	ball=new Ball(stage,bg[r],velx,vely);
+	//생성된 공을 배열에 채워넣자 그러면 아래의 게임루프에서 배열에 들어있는 공 갯수만큼 move()를 끝없이 호출해준다..
+	ballArray.push(ball);
+}
+//게임에 등장하는 모든 객체들을 움직이도록 처리하는 엔진..   
+function gameLoop(){
+	//배열에 채워진 게 있다면, 아래의 반복문 수행
+	for(var i=0;i<ballArray.length;i++){
+		ballArray[i].move();
+	}
+	setTimeout("gameLoop()", 10);
+}
+//키보드 중 스페이스 바에만 볼 생성 함수를 호출하자
+function fire(){
+	var key=event.keyCode;
+	if(key==32){
+		createBall();
+	}
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body onKeyDown="fire()">
+	<div class="wrapper">		
+		<div id="info"></div>
+		<div id="stage"></div>
+	</div>
+</body>
+</html>

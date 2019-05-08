@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>팔레트 효과</title>
+<style>
+.wrapper{
+	width:700px;
+	height:500px;
+	background:yellow;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:100px;
+	background:#000; /*0 6개와 동일*/
+}
+.down{
+	width:100%;
+	height:400px;
+	background:pink;
+}
+/*up 클래스 하위에 있는 모든 div*/
+.up div{
+	width:100px;
+	height:100px;
+	float:left;
+}
+.up div:nth-child(1){
+	background:red;
+}
+.up div:nth-child(2){
+	background:orange;
+}
+.up div:nth-child(3){
+	background:yellow;
+}
+.up div:nth-child(4){
+	background:green;
+}
+.up div:nth-child(5){
+	background:blue;
+}
+.up div:nth-child(6){
+	background:#000066;
+}
+.up div:nth-child(7){
+	background:purple;
+}
+</style>
+<script>
+//down 영역의 div의 배경색을 현재 선택한 박스와 같은 색으로 변경
+function setBg(color){
+	var content=document.getElementById("content");
+	content.style.background=color;
+}
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="up">
+			<div onMouseOver="setBg('red')"></div>
+			<div onMouseOver="setBg('orange')"></div>
+			<div onMouseOver="setBg('yellow')"></div>
+			<div onMouseOver="setBg('green')"></div>
+			<div onMouseOver="setBg('blue')"></div>
+			<div onMouseOver="setBg('#000066')"></div>
+			<div onMouseOver="setBg('purple')"></div>
+		</div>
+		<div class="down" id="content"></div>
+	</div>
+</body>
+</html>

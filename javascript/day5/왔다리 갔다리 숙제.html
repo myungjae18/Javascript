@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>왔다리 갔다리 숙제</title>
+<style>
+/*body에는 기본적으로 마진속성이 살아있다. 웹사이트 제작시 수치값은 정교해야 하므로, 마진을 없애버린다.*/
+body{margin:0px;}
+#rect{
+	width:100px;
+	height:100px;
+	background:red;
+	position:absolute; /*부모를 기준으로 위치를 지정할 수 있다*/
+	left:0px;
+	top:150px;
+}
+</style>
+<script>
+var x=0; //프로그램이 끝날 때까지 그 값을 누적해야 하므로, 전역으로 선언
+var flag=true;
+function move(){
+	if(flag){
+		x+=10;
+	}else{
+		x-=10;
+	}
+	//문서 내의 rect라 불리는 요소의 위치 스타일 속성값을 증가, 감소
+	var rect=document.getElementById("rect");
+	rect.style.left=x+"px";
+	//500에 도달하면 논리값을 뒤집자
+	if(x>=500 || x<=0){
+		flag=!flag;
+	}
+}
+//자동이란 수동 로직을 사람이 아닌 컴퓨터가 대신 수행하는 것
+function auto(){
+	setInterval("move()",50)
+}
+</script>
+</head>
+<body>
+	<button onClick="move()">수동</button>
+	<button onClick="auto()">자동</button>
+		<div id="rect"></div>
+</body>
+</html>

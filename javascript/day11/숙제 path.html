@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>숙제 7</title>
+<style>
+#stage{
+	width:350px;
+	height:300px;
+}
+</style>
+<script src="../lib/equalizer.js"></script>
+<script>
+var stage;
+var equalArray=[];
+var bg=["red","orange","yellow","green","blue","navy","purple"];
+
+function init(){
+	stage=document.getElementById("stage");
+	gameLoop();
+	createEqual();
+}
+function createEqual(){
+	var r=getRandom(bg.length);
+	for(var i=0;i<7;i++){
+		equalArray.push(new equal(stage,300,50,0,bg[r]));
+	}		
+}
+function gameLoop(){
+	for(){
+	setTimeout("gameLoop()", 10);
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

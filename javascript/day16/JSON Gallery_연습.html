@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JSON Gallery</title>
+<style>
+body{background:#000;}
+.wrapper{
+	width:1000px;
+	height:600px;
+	margin:auto;
+}
+#title{
+	width:100%;
+	height:100px;
+	background:#003366;
+	color:#fff;
+	font-size:60px;
+	text-align:center;
+	font-weight:bold;
+	font-style:italic;
+	border-radius:15px;
+	border:5px solid #0099ff;
+}
+.content{
+	width:100%;
+	height:350px;
+	margin:20px 0px;
+}
+.poster{
+	width:71%;
+	height:100%;
+	float:left;
+	text-align:center;
+}
+#info{
+	width:27%;
+	height:97%;
+	background:dodgerblue;
+	color:#fff;
+	font-weight:bold;
+	float:left;
+	font-size:27px;
+	padding-left:10px;
+	padding-top:10px;
+	border-radius:15px;
+	border:5px solid #33ccff;
+}
+.poster img{
+	width:70%;
+	height:350px;
+	object-fit:contain;
+}
+.btn{
+	width:100%;
+	height:50px;
+}
+.btn button{
+	width:120px;
+	height:35px;
+	background:#003366;
+	color:#fff;
+	border-radius:10px;
+	margin:10px 0px;
+	border:3px solid #0099ff;
+}
+.btn button:nth-child(1){
+	float:left;
+}
+.btn button:nth-child(2){
+	float:right;
+}
+
+#thumb{
+	width:100%;
+	height:100px;
+	position:relative;
+	overflow:hidden;
+}
+</style>
+<script src="./data.js"></script>
+<script src="./Movie.js"></script>
+<script src="./Pointer.js"></script>
+<script>
+var title;
+var info;
+var thumb;
+var box;//수많은 썸네일을 포함하여, 좌우로 움직일 div
+var thumbWidth=96; //이미지 한개당 너비
+var thumbHeight=66; //이미지 한개당 높이
+var page=0; //현재 내가 보고있는 페이지
+var totalPage=0; //총 페이지 수
+var pointer;
+var targetBox=0;
+var poster;
+var selectedIndex=0;
+
+function init(){
+	title=document.getElementById("title");
+	info=document.getElementById("info");
+	thumb=document.getElementById("thumb");
+	poster=document.getElementsByClassName("poster")[0];
+
+	createThumb();
+	createPointer();
+	gameLoop();
+}
+//썸네일 생성한다!!
+function createThumb(){
+	//먼저 영화가 총 몇편인지 알아보자!!
+	console.log(movies.marvel.length);
+	var len=movies.marvel.length;
+	totalPage = Math.ceil(len/10); //2.3	
+
+	box=document.createElement("div");//썸네일을 포함하여, 움직일 주체
+	box.style.width=(thumbWidth+2*2)*len+"px";
+	box.style.height=(thumbHeight+2*2)+"px";
+	box.style.position="absolute";
+	box.style.left=0+"px";
+	box.style.top=0+"px";
+	thumb.appendChild(box);
+
+	//처음 영화는 기본적으로 보여주자!!
+	getDetail(movies.marvel[0]);
+
+	for(var i=0;i<len;i++){
+		var movie = new Movie(i,box,thumbWidth,thumbHeight, movies.marvel[i]);
+	}
+}
+
+function createPointer(){
+	pointer = new Pointer(box,0,0,100,70,0,0);
+}
+
+//영화 상세보기 처리
+function getDetail(data){
+	title.innerText=data.title;
+	//document.getElementById("pic").src=data.url;
+	poster.innerHTML="<img src='"+data.url+"'/>";
+
+	var str="";
+	str+="장르: "+data.category_name+"<br/><br/>";
+	str+="개봉일: "+data.release_year+"<br/><br/>";
+	str+="상영시간: "+data.running_time+"<br/><br/>";
+	str+="예산: "+data.budget+"<br/><br/>";
+	str+="총수입: "+data.gross
+
+	info.innerHTML=str;
+}
+//box를 음수방향으로 움직이되, box박스의 길이만큼
+function prev(){
+	if(page>0){//0이전 페이지는 없다!!
+		page--;
+		setTarget();
+	}else{
+		alert("이미 처음 페이지 입니다");
+	}
+}
+function next(){
+	if(page<totalPage-1){
+		page++;
+		setTarget();
+	}else{
+		alert("마지막 페이지입니다");
+	}
+}
+function setTarget(){
+	targetBox=-(1000*page);//박스가 도달할 목표지점
+}
+function moveBox(){
+	box.style.left= parseFloat(box.style.left)+0.1*(targetBox-parseFloat(box.style.left))+"px";
+}
+//넘겨받은 인수값을 이용하여 포인터의 위치를 결정한다!!
+//0, 1, 2.....     인수*100 = 포인터의 위치!!
+function pointerMove(index){
+	//pointer.x=index*100;
+	selectedIndex=index;
+	pointer.targetX=index*100;
+}
+
+function setYouTube(){
+	poster.innerHTML="<iframe src='"+movies.marvel[selectedIndex].youtube+"?autoplay=1' width='100%' height='350px' frameborder='0px'></iframe>";
+}
+
+function gameLoop(){
+	pointer.tick();
+	pointer.render();
+	moveBox();
+
+	setTimeout("gameLoop()",10);
+}
+addEventListener("load",function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div id="title">헐크</div>
+		<div class="content">
+			<div class="poster" onClick="setYouTube()">
+				<img id="pic"/>
+			</div>			
+			<div id="info">
+				장르:Science Fiction<br/>
+				개봉일:2015<br/>
+				상영시간:132<br/>
+				예산130,000,000<br/>
+				총수입:179,017,481
+			</div>
+		</div>
+		<div class="btn">
+			<button onClick="prev()">이전 페이지</button>
+			<button onClick="next()">다음 페이지</button>
+		</div>
+		<div id="thumb"></div>
+	</div>
+</body>
+</html>
+

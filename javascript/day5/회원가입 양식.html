@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>회원가입 양식</title>
+<link rel="stylesheet" type="text/css" href="./member.css"/>
+<script src="./member.js"></script>
+<script>
+//src를 이용하여 파일로 존재시킬 경우, 실행부가 src의 파일을 만나면 그파일안에 있는 모든 코드들을 물리적으로 현재 위치에 갖다 붙여 넣는다. 따라서 src가 명시된 script 태그엔 코드를 작성하지 말자. 별도로 <script> 선언하고 코드를 작성하자
+</script>
+</head>
+<body>
+	<table border="1px" width="600px">
+		<tr>
+			<td width="150px">ID</td>
+			<td	width="450px">
+				<input type="text" placeholder="아이디 입력"></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="password"</td>
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td><input type="text"</td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td>
+				<input type="text">
+				<select>
+					<option>서버선택</option>
+					<option>네이버</option>
+					<option>구글</option>
+					<option>다음</option>
+					<option>직접선택</option>
+				</select>
+				수신<input type="radio" name="receive"/>
+				비수신<input type="radio" name="receive"/>
+			</td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td>
+				<input type="text" size="5" readonly>-<input type="text" size="5" readonly>
+				<input type="button" value="우편번호검색"/><br>
+				<input type="text" size="50">
+				<input type="text" size="50">
+			</td>
+		</tr>
+		<tr>
+			<td>연락처</td>
+			<td>
+				<select>
+					<option>국번선택</option>
+					<option>010</option>
+					<option>011</option>
+					<option>017</option>
+				</select>-
+				<input type="text" size="5"/>-
+				<input type="text" size="5"/>
+			</td>
+		</tr>
+		<tr>
+			<td>관심분야</td>
+			<td>
+				통신<input type="checkbox"/>
+				프로그래밍<input type="checkbox"/>
+				데이터베이스<input type="checkbox"/>
+				보안<input type="checkbox"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<button onClick="showMsg()">회원가입</button>
+				<button>로그인</button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

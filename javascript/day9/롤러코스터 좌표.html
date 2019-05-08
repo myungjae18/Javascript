@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>롤러코스터 좌표</title>
+<style>
+body{margin:0px;}
+.wrapper{
+	width:1100px;
+	height:500px;
+	background:yellow;
+	overflow:hidden;
+}
+#content{
+	width:950px;
+	height:100%;
+	background:url("../res/point_chase/roller.png");
+	float:left;
+	position:relative;
+}
+.info{
+	width:150px;
+	height:100%;
+	float:left;
+}
+#data{
+	width:100%;
+	height:100%;
+	overflow-y:scroll;
+}
+</style>
+<script>
+var content;
+var data;
+var pointArray=[]; //장차 1차원 배열들이 담겨질 배열
+var pos;
+var mario;
+var k=0;
+var flag=false;
+
+function init(){
+	content=document.getElementById("content");
+	data=document.getElementById("data");
+	
+	content.addEventListener("click", function(){
+		createPoint();
+	});
+	createMario();
+	setInterval("move()",50);
+}
+function createPoint(){
+	var span=document.createElement("span");
+	span.innerText="●";
+	span.style.color="#fff";
+	span.style.position="absolute";
+	span.style.left=event.clientX+"px";
+	span.style.top=event.clientY+"px";
+	span.style.fontSize="4px";
+	console.log(event.clientX,event.clientY);
+	//현재 좌표를 보관해 놓자 점하나를 1차원 배열 1개에 담자
+	pos=[event.clientX,event.clientY];
+	pointArray.push(pos); //0번째 칸부터 채워넣는다
+	printPoint();
+	//메모리에 담겨진 데이터를 시각화 시킨다 div 좌표 출력
+	content.appendChild(span);
+}
+function printPoint(){
+	var str="";
+	for(var i=0;i<pointArray.length;i++){
+		str=str+"x축:"+pointArray[i][0];
+		str=str+"y축:"+pointArray[i][1]+"<br/>";
+	}
+	data.innerHTML=str; //x축
+}
+//주인공 등장
+function createMario(){
+	mario=document.createElement("img");
+	mario.src="../res/point_chase/mario.png";
+	mario.style.width=50+"px";
+	mario.style.position="absolute";
+	mario.style.left=534+"px";
+	mario.style.top=409+"px";
+	
+	content.appendChild(mario);
+}
+//메모리에 있는 이차원 배열이 마리오가 움직일 좌표들이 모여있는 데이터베이스이므로 한층 한층 접근해서 그 정보를 가져온다
+function move(){
+		if(flag){
+			mario.style.left=pointArray[k][0]+"px";
+			mario.style.top=pointArray[k][1]+"px";
+			k++;
+		}else{
+			setTimeout("move()",100);
+		}
+}
+function stop(){
+	removeChild(img);
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div	class="wrapper">
+		<div id="content"></div>
+		<div class="info">
+			<button onClick="flag=true">출발</button>
+			<button onClick="flag=false">Pause</button>
+			<div id="data"></div>
+		</div>
+	</div>
+</body>
+</html>

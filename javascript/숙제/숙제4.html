@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+<title>숙제 4</title>
+<style>
+body{margin:0px;}
+#wrapper{
+	width:1100px;
+	height:1000px;
+	background:yellow;
+	float:left;
+	position:absolute;
+}
+#but_place{
+	width:100px;
+	height:100%;
+	background:dodgerblue;
+	float:left;
+	position:absolute;
+	left:1000px;
+}
+#play{
+	width:1000px;
+	height:100%;
+	background:blue;
+	float:left;
+	position:relative;
+	top:0px;
+	left:0px;
+}
+</style>
+<script>
+var pointArray=[];
+var pos;
+var play;
+var div;
+var remove;
+
+function init(){
+	play=document.getElementById("play");
+	remove=document.getElementById("remove")
+	var wrapper=document.getElementById("wrapper");
+	for(var i=0;i<2500;i++){
+		div=document.createElement("div");
+		div.style.width=18+"px";
+		div.style.height=18+"px";
+		div.style.position="relative";
+		div.style.border="1px solid orange";
+		div.style.float="left";
+		div.style.background="yellow";
+		play.appendChild(div);
+		div.addEventListener("mouseover", function(){
+			this.style.background="green";
+			this.style.border="1px solid green";
+		});
+		remove.addEventListener("click", function(){
+			erase();					
+		});
+		}
+}
+function erase(){
+	play.removeChild(div);
+}
+
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="but_place">
+		<button id="remove" onClick="erase">지우기</button>
+		<button>재생</button>
+	</div>
+	<div id="play">
+	</div>
+</div>  
+</body>
+</html>

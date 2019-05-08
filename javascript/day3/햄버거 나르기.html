@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>햄버거 나르기</title>
+<style>
+/*햄버거의 위치를 지정하되 부모를 기준으로 즉div를 기준으로 해야 하기 때문에 absolute로 지정하자*/
+#burger{
+	width:250px;
+	position:absolute; /*가장 근접한 부모 태그를 기준으로 한 위치*/
+	left:100px;
+	top:200px;
+}
+
+/*스타일 코드를 재사용하기 위해서는 클래스 단위로 정의해놓으면 효율성이 있다.*/
+.stage{
+	width:100%;
+	height:700px;
+}
+
+</style>
+<script>
+var x=0; //x좌표값
+var y=0; //y좌표값
+var flag=false; //햄버거가 움직이지 말지를 결정하는 조건을 결정하는 변수
+//사용자가 마우스를 움직이는 한 계속 좌표를 구해놓아야함
+function getPos(){
+	//사용자가 일으키는 모든 이벤트에 대한 정보를 담고 있는 객체가 자바스크립트에서 event 객체이다.
+	x=event.clientX; //x좌표값
+	y=event.clientY; //y좌표값
+	//console.log(x,y);
+	//문서 내의 info라 불리는 dom요소의 텍스트값을 좌표로 대체하자
+document.getElementById("info").innerText="x: "+x+" y: "+y+" flag: "+flag;
+
+	
+if(flag){
+	var burger=document.getElementById("burger");
+	burger.style.left=x-(125)+"px";
+	burger.style.top=y-(100)+"px";
+	}
+}
+//햄버거 집기. 햄버거의 좌표와 마우스의 좌표를
+function take(){
+	// alert("나 눌렀어");
+	flag=!flag;
+}
+</script>
+</head>
+<body onMouseMove="getPos()">
+	<h1 id="info">좌표출력</h1>
+	<div class="stage">
+		<img src="../res/plate.png"/>
+		<br>
+		<img src="../res/burger.png" id="burger" onClick="take()"/>
+	</div>
+</body>
+</html>

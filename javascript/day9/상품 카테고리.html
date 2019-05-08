@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>상품 카테고리</title>
+<style>
+select{
+	width:200px;
+	height:50px;
+	font-size:40px;
+	background:dodgerblue;
+	color:#fff;
+}
+</style>
+<script>
+var topCategory=["상의","하의","액세서리","신발"];
+var subCategory=[
+	["티셔츠","가디건","니트","점퍼"],
+	["청바지","반바지","면바지","카고바지"],
+	["목걸이","귀걸이","팔찌","반지"],
+	["샌들","구두","운동화","워커"]
+];
+var sel_top;
+var sel_sub;
+
+function init(){
+	sel_top=document.getElementById("sel_top");
+	sel_sub=document.getElementById("sel_sub");
+	createTop();
+}
+//상위 카테고리 데이터 채워넣기
+function createTop(){
+	for(var x=0;x<topCategory.length;x++){
+		var op=document.createElement("option");
+		op.text=topCategory[x];
+		sel_top.add(op);
+	}
+}
+
+//유저가 선택한 상위 카테고리에 소속된 하위 카테고리 목록 가져오기
+function getDetail(){
+	//기존에 이미 옵션이 있다면 모두 제거하자
+	
+	//하위 카테고리를 가져오려면 유저가 선택한 상위 카테고리의 index가 필요하다. 왜? 그래야 하위 카테고리를 담는 2차원 배열의 위치를 알 수 있으므로
+	//alert("당신이 선택한 번째는"+sel_top.selectedIndex);
+	var index=sel_top.selectedIndex;
+	var count=subCategory[index].length;
+	for(var i=0;i<count;i++){
+		sel_sub.remove(0);
+	}
+	//하위에 출력
+	var op=document.createElement("option");
+	for(var y=0;y<subCategory[index].length;y++){
+		op.text=subCategory[index][y];
+		sel_sub.add(op);
+	}
+}
+
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<select id="sel_top" onChange="getDetail()"></select>
+	<select id="sel_sub"></select>
+</body>
+</html>

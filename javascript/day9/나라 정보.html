@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>나라 정보(2차원 배열은 데이터베이스다)</title>
+</head>
+<style>
+.wrapper{
+	width:400px;
+	height:500px;
+	background:yellow;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:300px;
+	background:red;
+}
+#content{
+	width:100%;
+	height:200px;
+	font-size:30px;
+}
+</style>
+<script>
+//프로그램에 사용할 데이터를 배열화시켜 순서라는 개념을 만들면 다음 다음이라는 기능을 구현할수 있다
+var nations=[
+	["1.png","북아메리카","미국","워싱턴"],
+	["2.png","동남아시아","말레이시아","쿠알라룸프르"],
+	["3.png","유럽","그리스","아테네"],
+	["4.png","유럽","영국","런던"],
+	["5.png","유럽","독일","베를린"],
+	["6.png","유럽","스페인","마드리드"],
+	["7.png","유럽","프랑스","파리"],
+	["8.png","유럽","러시아","모스크바"],
+	["9.png","남미","브라질","브라질리아"],
+	["10.png","북아메리카","캐나다","오타와"]
+];
+var content;
+var up;
+var index=0; //나라를 선택하는 배열의 인덱스, 바깥쪽 배열이기 때문에 층수를 결정한다
+
+function init(){
+	content=document.getElementById("content");
+	up=document.getElementsByClassName("up");
+	
+	createImg();
+}
+function createImg(){
+	var img=document.createElement("img");
+	img.src="../res/nation/"+nations[index][0];
+	img.style.width=100+"%";
+	img.style.height=100+"%";
+	img.addEventListener("click", function(){
+		//다음 이미지 나오고 정보도 바뀌게
+		index++; //다음 층으로 이동
+		this.src="../res/nation/"+nations[index][0];
+		showInfo();
+	});
+	
+	up[0].appendChild(img); //up 클래스가 적용된 dom 영역에 부착
+	showInfo(); //텍스트 정보도 출력
+}
+function showInfo(){
+	var str="";
+	str+="대륙명:"+nations[index][1]+"<br/>";
+	str+="나라명:"+nations[index][2]+"<br/>";
+	str+="수도명:"+nations[index][3];
+	
+	content.innerHTML=str;
+	
+}
+addEventListener("load",function(){
+	init();
+});
+</script>
+<body>
+	<div class="wrapper">
+		<div class="up"></div>
+		<div id="content"></div>
+	</div>
+</body>
+</html>

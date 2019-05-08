@@ -1,0 +1,14 @@
+var a="우루과이";
+var d="스페인";
+var c="독일";
+var i="사우디";
+var m="미국";
+var f="일본";
+var k="대만";
+var x="프랑스";
+var e="필리핀";
+var j="쿠웨이트";
+var p="우즈베키스탄";
+var b="불가리아";
+var g="러시아";
+var h="태국";

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>적군 생성하기</title>
+<style>
+#stage{
+	width:100%;
+	height:550px;
+	border:2px solid red;
+}
+input{
+	font-size:35px;
+}
+</style>
+<script>
+function createEnemy(){
+	var n=document.getElementById("txt").value;
+	//stage라는 id를 갖는 dom요소안에 img dom을 생성하여 붙이되 입력받은 횟수만큼.
+	var stage=document.getElementById("stage");
+	//기존의 stage 안쪽의 dom들을 싹 제거
+	stage.innerText="";
+	for(var i=1; i<=n;i++){
+	//이미지 dom 객체 생성
+		var img=document.createElement("img");
+		img.src="../res/enemy.png";
+		img.style.width=150+"px";
+	//stage에 img 부착
+		stage.appendChild(img);
+	}
+}
+</script>
+</head>
+<body>
+	<input type="text" placeholder="적군수 입력" id="txt"/>
+	<button onClick="createEnemy()">생성하기</button>
+	<div id="stage"></div>
+</body>
+</html>
